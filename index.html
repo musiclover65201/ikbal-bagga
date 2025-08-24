@@ -1,0 +1,672 @@
+</style>
+	/* Customization Panel */
+	.customize-btn {
+		position: fixed;
+		bottom: 32px;
+		right: 32px;
+		z-index: 1001;
+		background: var(--primary);
+		color: #fff;
+		border: none;
+		border-radius: 50%;
+		width: 56px;
+		height: 56px;
+		box-shadow: 0 4px 16px rgba(127,90,240,0.18);
+		cursor: pointer;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		font-size: 2rem;
+		transition: background 0.2s;
+	}
+	.customize-btn:hover {
+		background: var(--secondary);
+	}
+	.customize-panel {
+		position: fixed;
+		bottom: 100px;
+		right: 32px;
+		z-index: 1002;
+		background: rgba(255,255,255,0.98);
+		border-radius: 18px;
+		box-shadow: 0 8px 32px 0 rgba(31,38,135,0.18);
+		padding: 28px 24px 18px 24px;
+		min-width: 320px;
+		max-width: 95vw;
+		display: none;
+		flex-direction: column;
+		gap: 16px;
+		font-family: 'Montserrat', Arial, sans-serif;
+	}
+	.customize-panel.active {
+		display: flex;
+	}
+	.customize-panel label {
+		font-weight: 600;
+		margin-bottom: 4px;
+		color: var(--primary);
+	}
+	.customize-panel input[type="text"],
+	.customize-panel input[type="url"],
+	.customize-panel input[type="color"] {
+		width: 100%;
+		padding: 7px 10px;
+		border-radius: 7px;
+		border: 1px solid #b8c1ec;
+		margin-bottom: 10px;
+		font-size: 1rem;
+	}
+	.customize-panel .panel-row {
+		margin-bottom: 8px;
+	}
+	.customize-panel .panel-actions {
+		display: flex;
+		justify-content: flex-end;
+		gap: 10px;
+	}
+	.customize-panel .btn {
+		padding: 7px 18px;
+		font-size: 1rem;
+		border-radius: 7px;
+	}
+	<!-- Customization Button -->
+	<button class="customize-btn" id="customize-btn" title="Customize">
+		<svg width="32" height="32" fill="currentColor" viewBox="0 0 24 24"><path d="M19.14,12.94a7.07,7.07,0,0,0,.05-1,7.07,7.07,0,0,0-.05-1l2.11-1.65a.5.5,0,0,0,.12-.64l-2-3.46a.5.5,0,0,0-.61-.22l-2.49,1a7,7,0,0,0-1.73-1l-.38-2.65A.5.5,0,0,0,13,2H11a.5.5,0,0,0-.5.42l-.38,2.65a7,7,0,0,0-1.73,1l-2.49-1a.5.5,0,0,0-.61.22l-2,3.46a.5.5,0,0,0,.12.64l2.11,1.65a7.07,7.07,0,0,0-.05,1,7.07,7.07,0,0,0,.05,1L2.86,14.59a.5.5,0,0,0-.12.64l2,3.46a.5.5,0,0,0,.61.22l2.49-1a7,7,0,0,0,1.73,1l.38,2.65A.5.5,0,0,0,11,22h2a.5.5,0,0,0,.5-.42l.38-2.65a7,7,0,0,0,1.73-1l2.49,1a.5.5,0,0,0,.61-.22l2-3.46a.5.5,0,0,0-.12-.64ZM12,15.5A3.5,3.5,0,1,1,15.5,12,3.5,3.5,0,0,1,12,15.5Z"/></svg>
+	</button>
+	<!-- Customization Panel -->
+	<form class="customize-panel" id="customize-panel" autocomplete="off">
+		<div class="panel-row">
+			<label for="bg-url">Background Image URL</label>
+			<input type="url" id="bg-url" placeholder="Paste image URL...">
+		</div>
+		<div class="panel-row">
+			<label for="primary-color">Primary Color</label>
+			<input type="color" id="primary-color" value="#7f5af0">
+		</div>
+		<div class="panel-row">
+			<label for="secondary-color">Secondary Color</label>
+			<input type="color" id="secondary-color" value="#2cb67d">
+		</div>
+		<div class="panel-row">
+			<label for="contact-name">Contact Name</label>
+			<input type="text" id="contact-name" placeholder="Your Name" value="ikbal khan">
+		</div>
+		<div class="panel-row">
+			<label for="contact-email">Contact Email</label>
+			<input type="text" id="contact-email" placeholder="your@email.com">
+		</div>
+		<div class="panel-row">
+			<label for="contact-whatsapp">WhatsApp Number</label>
+			<input type="text" id="contact-whatsapp" placeholder="919999999999">
+		</div>
+		<div class="panel-row">
+			<label for="contact-insta">Instagram Username</label>
+			<input type="text" id="contact-insta" placeholder="yourprofile">
+		</div>
+		<div class="panel-actions">
+			<button type="button" class="btn" id="save-customize">Save</button>
+			<button type="button" class="btn" id="close-customize">Close</button>
+		</div>
+	</form>
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Photo & Lyrics Gallery</title>
+	<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;700&display=swap" rel="stylesheet">
+	<style>
+		:root {
+			--primary: #7f5af0;
+			--secondary: #2cb67d;
+			--bg: #f5f6fa;
+			--card: #fff;
+			--text: #232946;
+			--muted: #b8c1ec;
+			--danger: #ef4565;
+		}
+		html, body {
+			height: 100%;
+		}
+		body {
+			font-family: 'Montserrat', Arial, sans-serif;
+			background: var(--bg);
+			margin: 0;
+			min-height: 100vh;
+			/* Unique background image with overlay */
+			background-image:
+				linear-gradient(rgba(35,41,70,0.60), rgba(44,182,125,0.18)),
+				url('https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1200&q=80');
+			background-size: cover;
+			background-position: center;
+			background-attachment: fixed;
+		}
+		header {
+			background: var(--primary);
+			color: #fff;
+			padding: 32px 0 24px 0;
+			text-align: center;
+			box-shadow: 0 2px 12px rgba(127,90,240,0.08);
+		}
+		header h1 {
+			margin: 0;
+			font-size: 2.5rem;
+			font-weight: 700;
+			letter-spacing: 1px;
+		}
+		header p {
+			margin: 8px 0 0 0;
+			font-size: 1.1rem;
+			color: #e0e0e0;
+		}
+		.container {
+			max-width: 1100px;
+			margin: 40px auto;
+			display: flex;
+			gap: 36px;
+			flex-wrap: wrap;
+			justify-content: center;
+		}
+		.card {
+			background: var(--card);
+			border-radius: 18px;
+			box-shadow: 0 4px 32px rgba(44,182,125,0.07), 0 1.5px 8px rgba(127,90,240,0.04);
+			padding: 32px 28px 28px 28px;
+			flex: 1 1 420px;
+			min-width: 340px;
+			max-width: 500px;
+			display: flex;
+			flex-direction: column;
+			margin-bottom: 24px;
+			position: relative;
+			transition: box-shadow 0.2s;
+		}
+		.card:hover {
+			box-shadow: 0 8px 40px rgba(127,90,240,0.13), 0 2px 12px rgba(44,182,125,0.09);
+		}
+		h2 {
+			margin-top: 0;
+			color: var(--primary);
+			font-size: 1.5rem;
+			font-weight: 700;
+		}
+		/* Photo Gallery */
+		#photo-input {
+			margin-bottom: 18px;
+		}
+		.gallery {
+			display: grid;
+			grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
+			gap: 14px;
+			margin-top: 8px;
+		}
+		.gallery-item {
+			position: relative;
+			border-radius: 10px;
+			overflow: hidden;
+			box-shadow: 0 2px 8px rgba(44,182,125,0.07);
+			cursor: pointer;
+			transition: transform 0.15s;
+		}
+		.gallery-item:hover {
+			transform: scale(1.04);
+		}
+		.gallery-item img {
+			width: 100%;
+			height: 110px;
+			object-fit: cover;
+			display: block;
+		}
+		.delete-btn {
+			position: absolute;
+			top: 6px;
+			right: 6px;
+			background: var(--danger);
+			color: #fff;
+			border: none;
+			border-radius: 50%;
+			width: 26px;
+			height: 26px;
+			font-size: 1.1rem;
+			cursor: pointer;
+			opacity: 0.85;
+			z-index: 2;
+			transition: background 0.2s;
+		}
+		.delete-btn:hover {
+			background: #c82333;
+		}
+		/* Modal */
+		.modal {
+			display: none;
+			position: fixed;
+			z-index: 1000;
+			left: 0; top: 0; width: 100vw; height: 100vh;
+			background: rgba(35,41,70,0.85);
+			align-items: center;
+			justify-content: center;
+		}
+		.modal.active {
+			display: flex;
+		}
+		.modal-content {
+			background: #fff;
+			border-radius: 14px;
+			padding: 18px;
+			max-width: 90vw;
+			max-height: 80vh;
+			box-shadow: 0 8px 40px rgba(127,90,240,0.18);
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+		}
+		.modal-content img {
+			max-width: 70vw;
+			max-height: 60vh;
+			border-radius: 10px;
+		}
+		.close-modal {
+			margin-top: 12px;
+			background: var(--primary);
+			color: #fff;
+			border: none;
+			border-radius: 6px;
+			padding: 7px 18px;
+			font-size: 1rem;
+			cursor: pointer;
+		}
+		/* Lyrics */
+		#lyrics {
+			width: 100%;
+			min-height: 180px;
+			padding: 14px;
+			border-radius: 10px;
+			border: 1.5px solid var(--muted);
+			font-size: 1.08rem;
+			margin-bottom: 14px;
+			resize: vertical;
+			background: #f8fafd;
+			color: var(--text);
+			font-family: 'Montserrat', Arial, sans-serif;
+			box-shadow: 0 1px 4px rgba(44,182,125,0.04);
+		}
+		.editor-toolbar {
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+			margin-bottom: 8px;
+			font-size: 0.98rem;
+			color: var(--muted);
+		}
+		.count {
+			color: var(--secondary);
+			font-weight: 500;
+		}
+		.btn {
+			background: var(--primary);
+			color: #fff;
+			border: none;
+			padding: 10px 22px;
+			border-radius: 8px;
+			cursor: pointer;
+			font-size: 1.08rem;
+			font-family: 'Montserrat', Arial, sans-serif;
+			font-weight: 600;
+			transition: background 0.2s;
+			box-shadow: 0 1px 4px rgba(127,90,240,0.08);
+		}
+		.btn:hover {
+			background: #6246ea;
+		}
+		.saved-message {
+			color: var(--secondary);
+			font-size: 1rem;
+			margin-top: 8px;
+			font-weight: 500;
+			letter-spacing: 0.5px;
+		}
+		@media (max-width: 900px) {
+			.container {
+				flex-direction: column;
+				align-items: center;
+				gap: 18px;
+			}
+			.card {
+				max-width: 98vw;
+			}
+		}
+		@media (max-width: 600px) {
+			header h1 {
+				font-size: 1.5rem;
+			}
+			.container {
+				margin: 12px 0;
+				padding: 0 2vw;
+			}
+			.card {
+				padding: 18px 8px 16px 8px;
+			}
+		}
+</style>
+	/* Unique animated background element */
+	.animated-bg {
+		position: fixed;
+		top: 0; left: 0;
+		width: 100vw; height: 100vh;
+		pointer-events: none;
+		z-index: 0;
+		overflow: hidden;
+	}
+	.circle {
+		position: absolute;
+		border-radius: 50%;
+		background: linear-gradient(135deg, var(--primary) 60%, var(--secondary) 100%);
+		opacity: 0.18;
+		animation: float 12s ease-in-out infinite alternate;
+	}
+	.circle1 { width: 320px; height: 320px; top: 10%; left: -8%; animation-delay: 0s; }
+	.circle2 { width: 180px; height: 180px; bottom: 8%; right: -6%; animation-delay: 2s; }
+	.circle3 { width: 120px; height: 120px; top: 60%; left: 60%; animation-delay: 4s; }
+	@keyframes float {
+		0% { transform: translateY(0) scale(1); }
+		100% { transform: translateY(-30px) scale(1.08); }
+	}
+	/* Contact Section */
+	.contact-section {
+		width: 100vw;
+		display: flex;
+		justify-content: center;
+		align-items: flex-end;
+		margin-top: 32px;
+		margin-bottom: 0;
+		z-index: 2;
+		position: relative;
+	}
+	.contact-card {
+		background: rgba(255,255,255,0.25);
+		box-shadow: 0 8px 32px 0 rgba(31,38,135,0.18);
+		backdrop-filter: blur(10px);
+		-webkit-backdrop-filter: blur(10px);
+		border-radius: 18px;
+		border: 1.5px solid rgba(127,90,240,0.13);
+		padding: 28px 38px 22px 38px;
+		margin: 32px 0 24px 0;
+		min-width: 270px;
+		max-width: 400px;
+		text-align: center;
+		color: var(--text);
+		font-family: 'Montserrat', Arial, sans-serif;
+		z-index: 2;
+	}
+	.contact-card h3 {
+		margin: 0 0 10px 0;
+		color: var(--primary);
+		font-size: 1.3rem;
+		font-weight: 700;
+	}
+	.contact-card p {
+		margin: 6px 0 10px 0;
+		font-size: 1.05rem;
+		color: #232946;
+	}
+	.contact-icons {
+		margin-top: 10px;
+		display: flex;
+		justify-content: center;
+		gap: 18px;
+	}
+	.contact-icons a {
+		color: var(--primary);
+		font-size: 1.5rem;
+		transition: color 0.2s;
+		text-decoration: none;
+	}
+	.contact-icons a:hover {
+		color: var(--secondary);
+	}
+</head>
+<body>
+	<!-- Animated background shapes -->
+	<div class="animated-bg">
+		<div class="circle circle1"></div>
+		<div class="circle circle2"></div>
+		<div class="circle circle3"></div>
+	</div>
+	<header>
+		<h1>Photo & Lyrics Gallery</h1>
+		<p>Store your favorite photos and write beautiful lyrics with a premium experience.</p>
+	</header>
+	<div class="container">
+		<!-- Photo Section -->
+		<div class="card">
+			<h2>Photo Gallery</h2>
+			<input type="file" id="photo-input" accept="image/*" multiple>
+			<div class="gallery" id="gallery"></div>
+		</div>
+		<!-- Lyrics Section -->
+		<div class="card">
+			<h2>Write Your Lyrics</h2>
+			<div class="editor-toolbar">
+				<span id="word-count" class="count">0 words</span>
+				<span id="char-count" class="count">0 chars</span>
+			</div>
+			<textarea id="lyrics" placeholder="Write your lyrics here..."></textarea>
+			<button class="btn" id="save-lyrics">Save Lyrics</button>
+			<div class="saved-message" id="saved-message" style="display:none;">Lyrics saved!</div>
+		</div>
+	</div>
+	<!-- Contact Section -->
+	<div class="contact-section">
+		<div class="contact-card">
+			<h3>Contact Details</h3>
+			<p><strong>Name:</strong> Your Name</p>
+			<p><strong>Name:</strong> ikbal khan</p>
+			<p><strong>Email:</strong> <a href="mailto:your@email.com" style="color:var(--primary);text-decoration:underline;">your@email.com</a></p>
+			<div class="contact-icons">
+				<a href="https://wa.me/919999999999" target="_blank" title="WhatsApp"><svg width="24" height="24" fill="currentColor" viewBox="0 0 24 24"><path d="M20.52 3.48A11.93 11.93 0 0 0 12 0C5.37 0 0 5.37 0 12c0 2.11.55 4.16 1.6 5.97L0 24l6.19-1.62A11.93 11.93 0 0 0 12 24c6.63 0 12-5.37 12-12 0-3.19-1.24-6.19-3.48-8.52zM12 22c-1.85 0-3.66-.5-5.22-1.44l-.37-.22-3.68.97.98-3.59-.24-.37A9.94 9.94 0 0 1 2 12c0-5.52 4.48-10 10-10s10 4.48 10 10-4.48 10-10 10zm5.2-7.6c-.28-.14-1.65-.81-1.9-.9-.25-.09-.43-.14-.61.14-.18.28-.7.9-.86 1.08-.16.18-.32.2-.6.07-.28-.14-1.18-.44-2.25-1.4-.83-.74-1.39-1.65-1.55-1.93-.16-.28-.02-.43.12-.57.13-.13.28-.34.42-.51.14-.17.18-.29.28-.48.09-.19.05-.36-.02-.5-.07-.14-.61-1.47-.84-2.01-.22-.53-.45-.46-.61-.47-.16-.01-.36-.01-.56-.01-.19 0-.5.07-.76.34-.26.27-1 1-.98 2.43.02 1.43 1.03 2.81 1.18 3.01.15.2 2.03 3.1 4.93 4.23.69.3 1.23.48 1.65.61.69.22 1.32.19 1.81.12.55-.08 1.65-.67 1.88-1.32.23-.65.23-1.2.16-1.32-.07-.12-.25-.19-.53-.33z"/></svg></a>
+				<a href="mailto:your@email.com" target="_blank" title="Email"><svg width="24" height="24" fill="currentColor" viewBox="0 0 24 24"><path d="M12 13.065L.015 6.5A2.001 2.001 0 0 1 2 4h20a2.001 2.001 0 0 1 1.985 2.5L12 13.065zm10 1.435V6.697l-9.293 5.657a1 1 0 0 1-1.414 0L2 6.697v7.803A2.001 2.001 0 0 0 4 18h16a2.001 2.001 0 0 0 2-2.065z"/></svg></a>
+				<a href="https://instagram.com/yourprofile" target="_blank" title="Instagram"><svg width="24" height="24" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 1.366.062 2.633.334 3.608 1.308.974.974 1.246 2.242 1.308 3.608.058 1.266.07 1.646.07 4.85s-.012 3.584-.07 4.85c-.062 1.366-.334 2.633-1.308 3.608-.974.974-2.242 1.246-3.608 1.308-1.266.058-1.646.07-4.85.07s-3.584-.012-4.85-.07c-1.366-.062-2.633-.334-3.608-1.308-.974-.974-1.246-2.242-1.308-3.608C2.175 15.647 2.163 15.267 2.163 12s.012-3.584.07-4.85c.062-1.366.334-2.633 1.308-3.608.974-.974 2.242-1.246 3.608-1.308C8.416 2.175 8.796 2.163 12 2.163zm0-2.163C8.741 0 8.332.013 7.052.072 5.775.13 4.602.402 3.545 1.46 2.488 2.518 2.216 3.691 2.158 4.968.013 8.332 0 8.741 0 12c0 3.259.013 3.668.072 4.948.058 1.277.33 2.45 1.388 3.507 1.057 1.057 2.23 1.33 3.507 1.388C8.332 23.987 8.741 24 12 24c3.259 0 3.668-.013 4.948-.072 1.277-.058 2.45-.33 3.507-1.388 1.057-1.057 1.33-2.23 1.388-3.507.059-1.28.072-1.689.072-4.948 0-3.259-.013-3.668-.072-4.948-.058-1.277-.33-2.45-1.388-3.507C19.398.402 18.225.13 16.948.072 15.668.013 15.259 0 12 0zm0 5.838a6.162 6.162 0 1 0 0 12.324 6.162 6.162 0 0 0 0-12.324zm0 10.162a3.999 3.999 0 1 1 0-7.998 3.999 3.999 0 0 1 0 7.998zm6.406-11.845a1.44 1.44 0 1 0 0 2.88 1.44 1.44 0 0 0 0-2.88z"/></svg></a>
+			</div>
+		</div>
+	</div>
+	<!-- Modal for image preview -->
+	<div class="modal" id="modal">
+		<div class="modal-content">
+			<img id="modal-img" src="" alt="Preview">
+			<button class="close-modal" id="close-modal">Close</button>
+		</div>
+	</div>
+	<script>
+		// --- Customization Panel Logic ---
+		const customizeBtn = document.getElementById('customize-btn');
+		const customizePanel = document.getElementById('customize-panel');
+		const closeCustomize = document.getElementById('close-customize');
+		const saveCustomize = document.getElementById('save-customize');
+		// Panel fields
+		const bgUrlInput = document.getElementById('bg-url');
+		const primaryColorInput = document.getElementById('primary-color');
+		const secondaryColorInput = document.getElementById('secondary-color');
+		const contactNameInput = document.getElementById('contact-name');
+		const contactEmailInput = document.getElementById('contact-email');
+		const contactWhatsappInput = document.getElementById('contact-whatsapp');
+		const contactInstaInput = document.getElementById('contact-insta');
+
+		// Load customization from localStorage
+		function loadCustomization() {
+			const custom = JSON.parse(localStorage.getItem('customize') || '{}');
+			if (custom.bgUrl) {
+				document.body.style.backgroundImage = `linear-gradient(rgba(35,41,70,0.60), rgba(44,182,125,0.18)), url('${custom.bgUrl}')`;
+				bgUrlInput.value = custom.bgUrl;
+			}
+			if (custom.primary) {
+				document.documentElement.style.setProperty('--primary', custom.primary);
+				primaryColorInput.value = custom.primary;
+			}
+			if (custom.secondary) {
+				document.documentElement.style.setProperty('--secondary', custom.secondary);
+				secondaryColorInput.value = custom.secondary;
+			}
+			if (custom.contactName) {
+				document.querySelector('.contact-card p strong').nextSibling.textContent = ' ' + custom.contactName;
+				contactNameInput.value = custom.contactName;
+			}
+			if (custom.contactEmail) {
+				document.querySelector('.contact-card a[href^="mailto:"]').textContent = custom.contactEmail;
+				document.querySelector('.contact-card a[href^="mailto:"]').href = `mailto:${custom.contactEmail}`;
+				contactEmailInput.value = custom.contactEmail;
+			}
+			if (custom.contactWhatsapp) {
+				document.querySelector('.contact-card a[href^="https://wa.me/"]').href = `https://wa.me/${custom.contactWhatsapp}`;
+				contactWhatsappInput.value = custom.contactWhatsapp;
+			}
+			if (custom.contactInsta) {
+				document.querySelector('.contact-card a[href^="https://instagram.com/"]').href = `https://instagram.com/${custom.contactInsta}`;
+				contactInstaInput.value = custom.contactInsta;
+			}
+		}
+
+		// Open/close panel
+		customizeBtn.onclick = () => customizePanel.classList.toggle('active');
+		closeCustomize.onclick = () => customizePanel.classList.remove('active');
+
+		// Save customization
+		saveCustomize.onclick = () => {
+			const custom = {
+				bgUrl: bgUrlInput.value.trim(),
+				primary: primaryColorInput.value,
+				secondary: secondaryColorInput.value,
+				contactName: contactNameInput.value.trim(),
+				contactEmail: contactEmailInput.value.trim(),
+				contactWhatsapp: contactWhatsappInput.value.trim(),
+				contactInsta: contactInstaInput.value.trim()
+			};
+			localStorage.setItem('customize', JSON.stringify(custom));
+			loadCustomization();
+			customizePanel.classList.remove('active');
+		};
+
+		// Live update on input
+		bgUrlInput.oninput = () => {
+			if (bgUrlInput.value.trim()) {
+				document.body.style.backgroundImage = `linear-gradient(rgba(35,41,70,0.60), rgba(44,182,125,0.18)), url('${bgUrlInput.value.trim()}')`;
+			}
+		};
+		primaryColorInput.oninput = () => {
+			document.documentElement.style.setProperty('--primary', primaryColorInput.value);
+		};
+		secondaryColorInput.oninput = () => {
+			document.documentElement.style.setProperty('--secondary', secondaryColorInput.value);
+		};
+		contactNameInput.oninput = () => {
+			document.querySelector('.contact-card p strong').nextSibling.textContent = ' ' + contactNameInput.value;
+		};
+		contactEmailInput.oninput = () => {
+			document.querySelector('.contact-card a[href^="mailto:"]').textContent = contactEmailInput.value;
+			document.querySelector('.contact-card a[href^="mailto:"]').href = `mailto:${contactEmailInput.value}`;
+		};
+		contactWhatsappInput.oninput = () => {
+			document.querySelector('.contact-card a[href^="https://wa.me/"]').href = `https://wa.me/${contactWhatsappInput.value}`;
+		};
+		contactInstaInput.oninput = () => {
+			document.querySelector('.contact-card a[href^="https://instagram.com/"]').href = `https://instagram.com/${contactInstaInput.value}`;
+		};
+
+		// On load
+		window.addEventListener('DOMContentLoaded', loadCustomization);
+		// --- Photo Gallery with Modal and Delete ---
+		const photoInput = document.getElementById('photo-input');
+		const gallery = document.getElementById('gallery');
+		let photos = JSON.parse(localStorage.getItem('photos') || '[]');
+
+		function renderGallery() {
+			gallery.innerHTML = '';
+			photos.forEach((src, idx) => {
+				const item = document.createElement('div');
+				item.className = 'gallery-item';
+				const img = document.createElement('img');
+				img.src = src;
+				img.alt = 'Photo';
+				img.addEventListener('click', () => openModal(src));
+				const del = document.createElement('button');
+				del.className = 'delete-btn';
+				del.innerHTML = '&times;';
+				del.title = 'Delete photo';
+				del.onclick = (e) => {
+					e.stopPropagation();
+					photos.splice(idx, 1);
+					localStorage.setItem('photos', JSON.stringify(photos));
+					renderGallery();
+				};
+				item.appendChild(img);
+				item.appendChild(del);
+				gallery.appendChild(item);
+			});
+		}
+
+		photoInput.addEventListener('change', function() {
+			Array.from(photoInput.files).forEach(file => {
+				const reader = new FileReader();
+				reader.onload = function(e) {
+					photos.push(e.target.result);
+					localStorage.setItem('photos', JSON.stringify(photos));
+					renderGallery();
+				};
+				reader.readAsDataURL(file);
+			});
+			photoInput.value = '';
+		});
+
+		// Modal logic
+		const modal = document.getElementById('modal');
+		const modalImg = document.getElementById('modal-img');
+		const closeModalBtn = document.getElementById('close-modal');
+		function openModal(src) {
+			modalImg.src = src;
+			modal.classList.add('active');
+		}
+		closeModalBtn.onclick = () => modal.classList.remove('active');
+		modal.onclick = (e) => { if (e.target === modal) modal.classList.remove('active'); };
+
+		// Initial render
+		renderGallery();
+
+		// --- Lyrics Editor with Autosave, Word/Char Count ---
+		const lyricsArea = document.getElementById('lyrics');
+		const saveBtn = document.getElementById('save-lyrics');
+		const savedMsg = document.getElementById('saved-message');
+		const wordCount = document.getElementById('word-count');
+		const charCount = document.getElementById('char-count');
+
+		function updateCounts() {
+			const text = lyricsArea.value;
+			const words = text.trim().split(/\s+/).filter(Boolean);
+			wordCount.textContent = `${words.length} word${words.length !== 1 ? 's' : ''}`;
+			charCount.textContent = `${text.length} char${text.length !== 1 ? 's' : ''}`;
+		}
+
+		// Load saved lyrics on page load
+		window.addEventListener('DOMContentLoaded', () => {
+			const savedLyrics = localStorage.getItem('lyrics');
+			if (savedLyrics) {
+				lyricsArea.value = savedLyrics;
+			}
+			updateCounts();
+		});
+
+		// Autosave on input
+		lyricsArea.addEventListener('input', () => {
+			localStorage.setItem('lyrics', lyricsArea.value);
+			updateCounts();
+		});
+
+		saveBtn.addEventListener('click', () => {
+			localStorage.setItem('lyrics', lyricsArea.value);
+			savedMsg.style.display = 'block';
+			setTimeout(() => savedMsg.style.display = 'none', 1500);
+		});
+	</script>
+</body>
+</html>
